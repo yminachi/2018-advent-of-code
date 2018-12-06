@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import java.io.File
 
 class DaySixTests {
     private val daySix = DaySix()
+
+    private val input = InputReader().readInputFor("daySixInput")
 
     private val exampleInput = "1, 1\n" +
             "1, 6\n" +
@@ -20,7 +20,7 @@ class DaySixTests {
 
     @Test
     fun part1Solution() {
-        val result = daySix.partOne(getInput())
+        val result = daySix.partOne(input)
 
         assertEquals(3238, result)
     }
@@ -32,12 +32,8 @@ class DaySixTests {
 
     @Test
     fun part2Solution() {
-        val result = daySix.partTwo(getInput(), 10000)
+        val result = daySix.partTwo(input, 10000)
 
         assertEquals(45046, result)
-    }
-
-    private fun getInput(): String {
-        return  File("/Users/yasi/projects/adventofcode/src/test/resources/daySixInput.txt").readText(Charsets.UTF_8)
     }
 }

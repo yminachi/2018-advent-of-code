@@ -5,6 +5,8 @@ import java.io.File
 class DayOneTests {
     private val dayOne = DayOne()
 
+    private val input = InputReader().readInputFor("dayOneInput")
+
     @Test
     fun part1Example() {
         assertEquals(0, dayOne.partOne("+1\n+1\n-2"))
@@ -12,7 +14,7 @@ class DayOneTests {
 
     @Test
     fun part1Solution() {
-        val result = dayOne.partOne(getInput())
+        val result = dayOne.partOne(input)
 
         assertEquals(486, result)
     }
@@ -24,12 +26,8 @@ class DayOneTests {
 
     @Test
     fun part2Solution() {
-        val result = dayOne.partTwo(getInput(), null, null)
+        val result = dayOne.partTwo(input, null, null)
 
         assertEquals(69285, result)
-    }
-
-    private fun getInput(): String {
-        return  File("/Users/yasi/projects/adventofcode/src/test/resources/dayOneInput.txt").readText(Charsets.UTF_8)
     }
 }

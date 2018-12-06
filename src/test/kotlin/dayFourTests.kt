@@ -1,11 +1,10 @@
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import java.io.File
 
 class DayFourTests {
     private val dayFour = DayFour()
 
+    private val input = InputReader().readInputFor("dayFourInput")
     private val exampleInput = "[1518-11-01 00:00] Guard #10 begins shift\n" +
             "[1518-11-01 00:05] falls asleep\n" +
             "[1518-11-01 00:25] wakes up\n" +
@@ -31,7 +30,7 @@ class DayFourTests {
 
     @Test
     fun part1Solution() {
-        val result = dayFour.partOne(getInput())
+        val result = dayFour.partOne(input)
 
         assertEquals(12504, result)
     }
@@ -43,12 +42,8 @@ class DayFourTests {
 
     @Test
     fun part2Solution() {
-        val result = dayFour.partTwo(getInput())
+        val result = dayFour.partTwo(input)
 
         assertEquals(139543, result)
-    }
-
-    private fun getInput(): String {
-        return  File("/Users/yasi/projects/adventofcode/src/test/resources/dayFourInput.txt").readText(Charsets.UTF_8)
     }
 }

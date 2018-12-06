@@ -1,9 +1,10 @@
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.io.File
 
 class DayThreeTests {
     private val dayThree = DayThree()
+    
+    private val input = InputReader().readInputFor("dayThreeInput")
 
     private val exampleInput = "#1 @ 1,3: 4x4\n" +
             "#2 @ 3,1: 4x4\n" +
@@ -16,7 +17,7 @@ class DayThreeTests {
 
     @Test
     fun part1Solution() {
-        val result = dayThree.partOne(getInput())
+        val result = dayThree.partOne(input)
 
         assertEquals(121259, result)
     }
@@ -29,12 +30,8 @@ class DayThreeTests {
 
     @Test
     fun part2Solution() {
-        val result = dayThree.partTwo(getInput())
+        val result = dayThree.partTwo(input)
 
         assertEquals(239, result)
-    }
-
-    private fun getInput(): String {
-        return  File("/Users/yasi/projects/adventofcode/src/test/resources/dayThreeInput.txt").readText(Charsets.UTF_8)
     }
 }
