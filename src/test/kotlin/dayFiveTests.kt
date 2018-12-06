@@ -6,38 +6,30 @@ import java.io.File
 class DayFiveTests {
     private val dayFive = DayFive()
 
+    private val exampleInput = "dabAcCaCBAcCcaDA"
+
     @Test
     fun part1Example() {
-        val input = "dabAcCaCBAcCcaDA"
-        assertEquals(10, dayFive.partOne(input))
+        assertEquals(10, dayFive.partOne(exampleInput))
     }
 
     @Test
     fun part1Solution() {
         val result = dayFive.partOne(getInput())
 
-        assertNotNull(result)
-
-        print("🐔")
-        print(result)
-        print("🐔")
+        assertEquals(10368, result)
     }
 
     @Test
     fun part2Example() {
-        val input = "dabAcCaCBAcCcaDA"
-        assertEquals(4, dayFive.partTwo(input))
+        assertEquals(4, dayFive.partTwo(exampleInput))
     }
 
     @Test
     fun part2Solution() {
         val result = dayFive.partTwo(getInput())
 
-        assertNotNull(result)
-
-        print("🐔")
-        print(result)
-        print("🐔")
+        assertEquals(4122, result)
     }
 
     private fun getInput(): String {

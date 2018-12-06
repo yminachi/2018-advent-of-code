@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -16,11 +15,7 @@ class DayTwoTests {
     fun part1Solution() {
         val result = dayTwo.partOne(getInput())
 
-        assertNotNull(result)
-
-        print("🐔")
-        print(result)
-        print("🐔")
+        assertEquals(7657, result)
     }
 
     @Test
@@ -38,11 +33,7 @@ class DayTwoTests {
     fun part2Solution() {
         val result = dayTwo.partTwo(getInput())
 
-        assertNotNull(result)
-
-        print("🐔")
-        print(result)
-        print("🐔")
+        assertEquals("ivjhcadokeltwgsfsmqwrbnuy", result)
     }
 
     private fun getInput(): String {

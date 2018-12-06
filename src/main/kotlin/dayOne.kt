@@ -1,5 +1,5 @@
 class DayOne {
-    fun findFrequency(input: String): Int {
+    fun partOne(input: String): Int {
         val changes = input.split("\n")
         var sum = 0
 
@@ -10,7 +10,7 @@ class DayOne {
         return sum
     }
 
-    fun findFirstDouble(input: String, prevSum: Int?, prevMap: HashMap<Int, Boolean>?): Int? {
+    fun partTwo(input: String, prevSum: Int?, prevMap: HashMap<Int, Boolean>?): Int? {
         val changes = input.split("\n")
 
         var sum = prevSum ?: 0
@@ -26,6 +26,6 @@ class DayOne {
             }
         }
 
-        return findFirstDouble(input, sum, sumMap)
+        return partTwo(input, sum, sumMap)
     }
 }
