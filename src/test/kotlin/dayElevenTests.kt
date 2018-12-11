@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.sql.Time
 
 class DayElevenTests {
     private val dayEleven = DayEleven()
@@ -28,7 +27,7 @@ class DayElevenTests {
     fun part2Solution() {
         val result = dayEleven.partTwo(5177)
 
-        assertEquals(Triple(0,0,0), result)
+        assertEquals(Triple(231,135,8), result)
     }
 
 }

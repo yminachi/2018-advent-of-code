@@ -1,53 +1,56 @@
 class DayEleven {
-    data class Result(val total: Int, val coordinate: Pair<Int, Int>, val size: Int, val wholeGrid: HashMap<Pair<Int, Int>, Int>)
-
     fun partOne(input: Int): Pair<Int, Int> {
-        return largestSquareOfSize(input, 3, hashMapOf()).coordinate
+        val allPower = populateBaseGrid(input)
+        var previousTotals = Array(300, { IntArray(300) })
+        var largestResult = LargestOfSizeResult(0, 0, 0, 0, arrayOf())
+
+        for (size in 1..3) {
+            val result = largestSquareOfSize(allPower, size, previousTotals)
+
+            previousTotals = result.totalsGrid
+
+            if (size == 3) {
+                largestResult = result
+            }
+        }
+
+        return Pair(largestResult.x + 1, largestResult.y + 1)
     }
 
-    private fun largestSquareOfSize(input: Int, size: Int, previousSizeGrid: HashMap<Pair<Int, Int>, Int>): Result {
+    data class LargestOfSizeResult(val total: Int, val x: Int, val y: Int, val size: Int, val totalsGrid: Array<IntArray>)
+
+    private fun largestSquareOfSize(grid: Array<IntArray>, size: Int, previousTotalsGrid: Array<IntArray>): LargestOfSizeResult {
+        val gridSize = 301 - size
+        val totalsGrid = Array(gridSize, { IntArray(gridSize) })
+
         var maxTotal = 0
-        var result = Pair(0,0)
-        val grid = hashMapOf<Pair<Int, Int>, Int>()
+        var maxTotalX = 0
+        var maxTotalY = 0
 
-        for (x in 1..(301 - size)) {
-            for (y in 1..(301 - size)) {
+        for (x in 0 until gridSize) {
+            for (y in 0 until gridSize) {
+                val total = findPowerForSquareOfSize(grid, x, y, size, previousTotalsGrid[x][y])
+                totalsGrid[x][y] = total
 
-                val squarePower = if (previousSizeGrid[Pair(x, y)] == null)
-                    findPowerForSquareOfSize(input, Pair(x, y), size) else
-                    findPowerForSquareOfSize(input, Pair(x, y), size, previousSizeGrid[Pair(x, y)]!!)
-
-                if (squarePower > maxTotal) {
-                    maxTotal = squarePower
-                    result = Pair(x, y)
+                if (total >= maxTotal) {
+                    maxTotalX = x
+                    maxTotalY = y
+                    maxTotal = total
                 }
-
-                grid[Pair(x,y)] = squarePower
             }
         }
 
-        return Result(maxTotal, result, size, grid)
+        return LargestOfSizeResult(maxTotal, maxTotalX, maxTotalY, size, totalsGrid)
     }
 
-    private fun findPowerForSquareOfSize(input: Int, coordinate: Pair<Int, Int>, size: Int): Int {
-        var sum = 0
-        for (i in 0 until size) {
-            for (j in 0 until size) {
-                sum += findPower(input, Pair(coordinate.first + i, coordinate.second + j))
-            }
-        }
-
-        return sum
-    }
-
-    private fun findPowerForSquareOfSize(input: Int, coordinate: Pair<Int, Int>, size: Int, oneLessSizeValue: Int): Int {
+    private fun findPowerForSquareOfSize(grid: Array<IntArray>, x: Int, y: Int, size: Int, oneLessSizeValue: Int): Int {
         var sum = oneLessSizeValue
         for (i in 0 until size) {
-            sum += findPower(input, Pair(coordinate.first + i, coordinate.second + size - 1))
+            sum += grid[x + i][y + size - 1]
         }
 
-        for (j in 0 until size) {
-            sum += findPower(input, Pair(coordinate.first + size - 1, coordinate.second + j))
+        for (j in 0 until size - 1) {
+            sum += grid[x + size - 1][y + j]
         }
 
         return sum
@@ -60,19 +63,33 @@ class DayEleven {
         return hundredsDigit.toString().toInt() - 5
     }
 
-    fun partTwo(input: Int): Triple<Int, Int, Int> {
-        var largestResult = Result(0, Pair(0,0), 1, hashMapOf())
-        var previousSizeGrid = hashMapOf<Pair<Int, Int>, Int>()
+    private fun populateBaseGrid(input: Int): Array<IntArray> {
+        val allPowerTotals = Array(300, { IntArray(300) })
 
-        for (s in 1..300) {
-            print(s.toString() + "\n")
-            val result = largestSquareOfSize(input, s, previousSizeGrid)
-            if (result.total > largestResult.total) {
-                largestResult = Result(result.total, result.coordinate, s, hashMapOf())
+        for (i in 0 until 300) {
+            for (j in 0 until 300) {
+                allPowerTotals[i][j] = findPower(input, Pair(i + 1, j + 1))
             }
-            previousSizeGrid = result.wholeGrid
         }
 
-        return Triple(largestResult.coordinate.first, largestResult.coordinate.second, largestResult.size)
+        return allPowerTotals
+    }
+
+    fun partTwo(input: Int): Triple<Int, Int, Int> {
+        val allPower = populateBaseGrid(input)
+        var previousTotals = Array(300, { IntArray(300) })
+        var largestResult = LargestOfSizeResult(0, 0, 0, 0, arrayOf())
+
+        for (size in 1..300) {
+            val result = largestSquareOfSize(allPower, size, previousTotals)
+
+            previousTotals = result.totalsGrid
+
+            if (result.total >= largestResult.total) {
+                largestResult = result
+            }
+        }
+
+        return Triple(largestResult.x + 1, largestResult.y + 1, largestResult.size)
     }
 }
