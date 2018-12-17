@@ -20,7 +20,7 @@ class DayFour {
             when {
                 it.cmd.contains("begins shift") -> currentGuard = it.cmd.split(" ", "#")[2].toInt()
                 it.cmd == "falls asleep" -> asleepAtMinute = it.dateTime.minute
-                it.cmd == "wakes up" -> {
+                it.cmd == "wakes Up" -> {
                     val minutesAsleep = it.dateTime.minute - asleepAtMinute!!
 
                     totalMinAsleep[currentGuard!!] = totalMinAsleep[currentGuard!!]?.plus(minutesAsleep) ?: minutesAsleep
@@ -58,7 +58,7 @@ class DayFour {
             when {
                 it.cmd.contains("begins shift") -> currentGuard = it.cmd.split(" ", "#")[2].toInt()
                 it.cmd == "falls asleep" -> asleepAtMinute = it.dateTime.minute
-                it.cmd == "wakes up" -> {
+                it.cmd == "wakes Up" -> {
                     for (i in asleepAtMinute!! until it.dateTime.minute) {
                         minAsleep[Pair(currentGuard!!, i)] = minAsleep[Pair(currentGuard!!, i)]?.plus(1) ?: 1
                     }
